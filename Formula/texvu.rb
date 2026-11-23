@@ -1,7 +1,7 @@
 class Texvu < Formula
   desc "Local PDF.js viewer with SyncTeX for LaTeX workflows"
   homepage "https://github.com/sxlxc/texvu"
-  url "https://github.com/sxlxc/texvu.git", tag: "v0.2.0", revision: "f79b7bbc5b1b2e205193a3ce892c3b0c8083060a"
+  url "https://github.com/sxlxc/texvu.git", tag: "v0.2.1", revision: "d4949c04f6ca514b2c67f0e108bfddfa39b39eb4"
   license "MIT"
 
   depends_on "node"
