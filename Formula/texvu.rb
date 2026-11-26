@@ -1,14 +1,26 @@
 class Texvu < Formula
   desc "Local PDF.js viewer with SyncTeX for LaTeX workflows"
   homepage "https://github.com/sxlxc/texvu"
-  url "https://github.com/sxlxc/texvu.git", tag: "v0.2.3", revision: "8a05ac49490b50983e18499881e154495dbe757f"
+  url "https://github.com/sxlxc/texvu.git", tag: "v0.3.0", revision: "9f8c19129b3e24da92bb94009b70038067bb1cc3"
   license "MIT"
 
   depends_on "node"
 
+  resource "ws" do
+    url "https://registry.npmjs.org/ws/-/ws-8.23.0.tgz"
+    sha256 "b8bd105a274ae9ca114f8c6ce4d9dbb0c764fe5118ba633c557e1703e297c587"
+  end
+
   def install
     libexec.install "src", "vendor", "package.json"
+    (libexec/"node_modules/ws").install resource("ws")
     bin.install_symlink libexec/"src/cli.js" => "texvu"
+  end
+
+  service do
+    run [opt_bin/"texvu", "daemon"]
+    keep_alive true
+    environment_variables PATH: "#{Formula["node"].opt_bin}:#{HOMEBREW_PREFIX}/bin:/Library/TeX/texbin:/usr/local/bin:/usr/bin:/bin"
   end
 
   test do
